@@ -1,6 +1,20 @@
-<template >
-  <div class="mx-auto max-w-5xl p-4 sm:px-6 lg:px-8">
-    <div class="overflow-x-auto">
+<template>
+  <article class="w-full flex flex-col gap-4 p-4">
+    <h1 class="text-2xl font-bold">Project Management</h1>
+    <!-- add Project -->
+    <div
+      class="flex justify-between items-center border border-gray-200 p-4 rounded-lg"
+    >
+      <h2 class="text-xl font-medium">Project Management</h2>
+      <button
+        class="inline-flex items-center justify-center rounded-lg border border-blue-500 bg-blue-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-blue-700 focus-visible:ring-4 focus-visible:ring-indigo-200 focus-visible:outline-none"
+        href="#"
+      >
+        <BeakerIcon class="size-6 text-shadow-amber-100" /> Add Project
+      </button>
+    </div>
+    <!-- Table -->
+    <div class="overflow-x-auto rounded border border-gray-300 shadow-sm">
       <table class="min-w-full divide-y-2 divide-gray-200">
         <thead class="ltr:text-left rtl:text-right">
           <tr class="*:font-medium *:text-gray-900">
@@ -8,6 +22,7 @@
             <th class="px-3 py-2 whitespace-nowrap">DoB</th>
             <th class="px-3 py-2 whitespace-nowrap">Role</th>
             <th class="px-3 py-2 whitespace-nowrap">Salary</th>
+            <th class="px-3 py-2 whitespace-nowrap">Action</th>
           </tr>
         </thead>
 
@@ -17,6 +32,11 @@
             <td class="px-3 py-2 whitespace-nowrap">04/06/1262</td>
             <td class="px-3 py-2 whitespace-nowrap">Vampire Warrior</td>
             <td class="px-3 py-2 whitespace-nowrap">$0</td>
+            <td class="px-3 py-2 whitespace-nowrap flex gap-2 bg-amber-200">
+              <button class="">
+                
+              </button>
+            </td>
           </tr>
 
           <tr class="*:text-gray-900 *:first:font-medium">
@@ -49,11 +69,13 @@
         </tbody>
       </table>
     </div>
-  </div>
+  </article>
 </template>
 <script>
+import { BeakerIcon } from '@heroicons/vue/16/solid';
+
 export default {
-  name: "Profile",
+  name: "Work",
 };
 </script>
-<style lang=""></style>
+<style></style>

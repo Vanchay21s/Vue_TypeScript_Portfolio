@@ -1,17 +1,20 @@
 <template>
-  <Header />
-  <router-view></router-view>
-  <Footer />
+  <article class="w-full flex ">
+  <SideMenu />
+  <div class="w-full"> 
+    <router-view></router-view>
+  </div>
+  </article>
 </template>
 
 <script>
 import Footer from "./components/Footer.vue";
-import Header from "./components/Header.vue";
+import SideMenu from "./components/SideMenu.vue";
 
 export default {
   name: "App",
   components: {
-    Header,
+    SideMenu,
     Footer,
   },
 };

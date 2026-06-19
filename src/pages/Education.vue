@@ -1,4 +1,4 @@
-<template lang="">
+<template>
   <div class="mx-auto max-w-5xl p-4 sm:px-6 lg:px-8">
     <div class="space-y-2">
       <details class="group [&amp;_summary::-webkit-details-marker]:hidden">
