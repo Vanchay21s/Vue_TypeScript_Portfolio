@@ -7,11 +7,15 @@
     >
       <h2 class="text-xl font-medium">Project Management</h2>
       <button
-        class="inline-flex items-center justify-center rounded-lg border border-blue-500 bg-blue-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-blue-700 focus-visible:ring-4 focus-visible:ring-indigo-200 focus-visible:outline-none"
-        href="#"
+        @click="isOpen = true"
+        class="rounded-lg bg-blue-600 px-4 py-2 text-white"
       >
-        <BeakerIcon class="size-6 text-shadow-amber-100" /> Add Project
+        Open Modal
       </button>
+
+      <WorkModal :show="isOpen" @close="isOpen = false">
+        <p>This is modal content.</p>
+      </WorkModal>
     </div>
     <!-- Table -->
     <div class="overflow-x-auto rounded border border-gray-300 shadow-sm">
@@ -33,9 +37,7 @@
             <td class="px-3 py-2 whitespace-nowrap">Vampire Warrior</td>
             <td class="px-3 py-2 whitespace-nowrap">$0</td>
             <td class="px-3 py-2 whitespace-nowrap flex gap-2 bg-amber-200">
-              <button class="">
-                
-              </button>
+              <button class=""></button>
             </td>
           </tr>
 
@@ -71,11 +73,11 @@
     </div>
   </article>
 </template>
-<script>
-import { BeakerIcon } from '@heroicons/vue/16/solid';
+<script setup>
+import { BeakerIcon } from "@heroicons/vue/16/solid";
 
-export default {
-  name: "Work",
-};
+import { ref } from "vue";
+import WorkModal from "./WorkModal.vue";
+
+const isOpen = ref(false);
 </script>
-<style></style>

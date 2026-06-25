@@ -142,9 +142,5 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: "SideMenu",
-};
+<script setup>
 </script>
-<style lang=""></style>
