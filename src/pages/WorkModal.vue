@@ -8,7 +8,39 @@
         <button @click="closeModal" class="text-gray-500 hover:text-gray-700"> ✕ </button>
       </div>
       <div class="mt-4">
-        <slot />
+        <form class="flex flex-col" action="">
+          <!-- name ----------------------------- -->
+          <label for="">name</label>
+          <input 
+            class="border"
+            type="text">
+          <!-- position ----------------------------- -->
+          <label for="">position</label>
+          <input 
+            class="border"
+            type="text">
+          <!-- github ----------------------------- -->
+          <label for="">github</label>
+          <input 
+            class="border"
+            type="text">
+          <!-- demo ----------------------------- -->
+          <label for="">demo</label>
+          <input 
+            class="border"
+            type="text">
+          <!-- framework ----------------------------- -->
+          <label for="">framework</label>
+          <input 
+            class="border"
+            type="text">
+          <!-- description ----------------------------- -->
+          <label for="">description</label>
+          <input 
+            class="border"
+            type="text"><br>  
+          <button class="border" type="submit">sumbit</button>
+        </form>
       </div>
       <div class="mt-6 flex justify-end gap-2">
         <button @click="closeModal" class="rounded-lg border px-4 py-2 hover:bg-gray-100">
