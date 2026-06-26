@@ -29,50 +29,33 @@
     <div class="overflow-x-auto rounded border border-gray-300 shadow-sm">
       <table class="min-w-full divide-y-2 divide-gray-200">
         <thead class="ltr:text-left rtl:text-right">
-          <tr class="*:font-medium *:text-gray-900">
-            <th class="px-3 py-2 whitespace-nowrap">Name</th>
-            <th class="px-3 py-2 whitespace-nowrap">DoB</th>
-            <th class="px-3 py-2 whitespace-nowrap">Role</th>
-            <th class="px-3 py-2 whitespace-nowrap">Salary</th>
-            <th class="px-3 py-2 whitespace-nowrap">Action</th>
+          <tr class="*:font-medium *:text-gray-500 bg-gray-500/20">
+            <th class="px-3 py-2 whitespace-nowrap">No</th>
+            <th class="px-3 py-2 whitespace-nowrap">name</th>
+            <th class="px-3 py-2 whitespace-nowrap">position</th>
+            <th class="px-3 py-2 whitespace-nowrap">github</th>
+            <th class="px-3 py-2 whitespace-nowrap">demo</th>
+            <th class="px-3 py-2 whitespace-nowrap">framework</th>
+            <th class="px-3 py-2 whitespace-nowrap">description</th>
+            <th class="px-3 py-2 whitespace-nowrap">created_at</th>
+            <th class="px-3 py-2 whitespace-nowrap text-center">action</th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-gray-200">
-          <tr class="*:text-gray-900 *:first:font-medium">
-            <td class="px-3 py-2 whitespace-nowrap">Nandor the Relentless</td>
-            <td class="px-3 py-2 whitespace-nowrap">04/06/1262</td>
-            <td class="px-3 py-2 whitespace-nowrap">Vampire Warrior</td>
-            <td class="px-3 py-2 whitespace-nowrap">$0</td>
-            <td class="px-3 py-2 whitespace-nowrap flex gap-2 bg-amber-200">
-              <button class=""></button>
+        <tbody v-if="todo && todo.data" class="divide-y divide-gray-200">
+          <tr v-for="item in todo.data.data" :key="item.id" class="*:text-gray-900 *:first:font-medium">
+            <td class="px-3 py-2 whitespace-nowrap">{{ item.id }}</td>
+            <td class="px-3 py-2 whitespace-nowrap">{{ item.name }}</td>
+            <td class="px-3 py-2 whitespace-nowrap">{{ item.position }}</td>
+            <td class="px-3 py-2 whitespace-nowrap">{{ item.github }}</td>
+            <td class="px-3 py-2 whitespace-nowrap">{{ item.demo }}</td>
+            <td class="px-3 py-2 whitespace-nowrap">{{ item.framework }}</td>
+            <td class="px-3 py-2 whitespace-nowrap">{{ item.description }}</td>
+            <td class="px-3 py-2 whitespace-nowrap">{{ item.created_at }}</td>
+            <td class="text-center">
+              <button class="text-blue-400 bg-blue-500/20 font-bold border cursor-pointer">view</button> / 
+              <button class="text-yellow-400 bg-yellow-500/20 font-bold border cursor-pointer">Edit</button> / 
+              <button class="text-red-400 bg-red-500/20 font-bold border cursor-pointer">Delete</button>
             </td>
-          </tr>
-          <tr class="*:text-gray-900 *:first:font-medium">
-            <td class="px-3 py-2 whitespace-nowrap">Laszlo Cravensworth</td>
-            <td class="px-3 py-2 whitespace-nowrap">19/10/1678</td>
-            <td class="px-3 py-2 whitespace-nowrap">Vampire Gentleman</td>
-            <td class="px-3 py-2 whitespace-nowrap">$0</td>
-          </tr>
-
-          <tr class="*:text-gray-900 *:first:font-medium">
-            <td class="px-3 py-2 whitespace-nowrap">Nadja</td>
-            <td class="px-3 py-2 whitespace-nowrap">15/03/1593</td>
-            <td class="px-3 py-2 whitespace-nowrap">Vampire Seductress</td>
-            <td class="px-3 py-2 whitespace-nowrap">$0</td>
-          </tr>
-
-          <tr class="*:text-gray-900 *:first:font-medium">
-            <td class="px-3 py-2 whitespace-nowrap">Colin Robinson</td>
-            <td class="px-3 py-2 whitespace-nowrap">01/09/1971</td>
-            <td class="px-3 py-2 whitespace-nowrap">Energy Vampire</td>
-            <td class="px-3 py-2 whitespace-nowrap">$53,000</td>
-          </tr>
-
-          <tr class="*:text-gray-900 *:first:font-medium">
-            <td class="px-3 py-2 whitespace-nowrap">Guillermo de la Cruz</td>
-            <td class="px-3 py-2 whitespace-nowrap">18/11/1991</td>
-            <td class="px-3 py-2 whitespace-nowrap">Familiar/Vampire Hunter</td>
-            <td class="px-3 py-2 whitespace-nowrap">$0</td>
           </tr>
         </tbody>
       </table>
@@ -80,8 +63,6 @@
   </article>
 </template>
 <script setup>
-import { BeakerIcon } from "@heroicons/vue/16/solid";
-
 import { onMounted, ref } from "vue";
 import WorkModal from "./WorkModal.vue";
 import axios from "axios";

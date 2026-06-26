@@ -7,49 +7,24 @@
         <h2 class="text-xl font-semibold">Modal Title</h2>
         <button @click="closeModal" class="text-gray-500 hover:text-gray-700"> ✕ </button>
       </div>
-      <div class="mt-4">
-        <form class="flex flex-col" action="">
-          <!-- name ----------------------------- -->
-          <label for="">name</label>
-          <input 
-            class="border"
-            type="text">
-          <!-- position ----------------------------- -->
-          <label for="">position</label>
-          <input 
-            class="border"
-            type="text">
-          <!-- github ----------------------------- -->
-          <label for="">github</label>
-          <input 
-            class="border"
-            type="text">
-          <!-- demo ----------------------------- -->
-          <label for="">demo</label>
-          <input 
-            class="border"
-            type="text">
-          <!-- framework ----------------------------- -->
-          <label for="">framework</label>
-          <input 
-            class="border"
-            type="text">
-          <!-- description ----------------------------- -->
-          <label for="">description</label>
-          <input 
-            class="border"
-            type="text"><br>  
-          <button class="border" type="submit">sumbit</button>
-        </form>
-      </div>
-      <div class="mt-6 flex justify-end gap-2">
-        <button @click="closeModal" class="rounded-lg border px-4 py-2 hover:bg-gray-100">
-          Cancel
-        </button>
-        <button @click="closeModal" class="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">
-          Confirm
-        </button>
-      </div>
+        <form class="flex flex-col" @submit.prevent="submit">
+          <label> Project Name </label>
+          <input class="border" v-model="form.name" type="text" placeholder="Portfolio Website" />
+          <label> Position </label>
+          <input class="border" v-model="form.position" type="text" placeholder="Frontend Developer"/>
+          <label> GitHub URL </label>
+          <input class="border" v-model="form.github" type="url" placeholder="https://github.com/username/project"/>
+          <label> Demo URL </label>
+          <input class="border" v-model="form.demo" type="url" placeholder="https://project.com"/>
+          <label> Framework / Tech Stack </label>
+          <input class="border" v-model="form.framework" type="text" placeholder="Vue 3, Tailwind CSS, Laravel"/>
+          <label> Description </label>
+          <textarea class="border" v-model="form.description" rows="5" placeholder="Describe your project..."/><br>
+          <div class="flex flex-col">
+            <button type="submit" class="text-green-400 bg-green-500/20 font-bold border cursor-pointer">Add Project</button>
+            <button type="button" @click="closeModal" class="border">Cancel</button>
+          </div>
+      </form>
     </div>
   </div>
 </template>
@@ -63,4 +38,26 @@ const emit = defineEmits(["close"]);
 const closeModal = () => {
   emit("close");
 };
+import axios from 'axios';
+import { reactive } from 'vue'
+const form = reactive({
+  name: "",
+  position: "",
+  github: "",
+  demo: "",
+  framework: "",
+  description: "",
+});
+
+const submit = async () => {
+    Object.assign(form, {
+        name: form.name,
+        position: form.position,
+        github: form.github,
+        demo: form.demo,
+        framework: form.framework,
+        description: form.description,
+    })
+    await axios.post('http://localhost:5002/v1/work', form)
+}
 </script>
