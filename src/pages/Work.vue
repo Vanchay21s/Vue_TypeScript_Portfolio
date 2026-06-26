@@ -2,6 +2,14 @@
   <article class="w-full flex flex-col gap-4 p-4">
     <h1 class="text-2xl font-bold">Project Management</h1>
     <!-- add Project -->
+    <button @click="getWork">fatch</button>
+    <div v-if="isLoading">Loading...</div>
+    <div v-else>
+      <div v-if="errorMessgae">
+        <p>{{ errorMessgae }}</p>
+      </div>
+    </div>
+    <div>{{ todo.data }}</div>
     <div
       class="flex justify-between items-center border border-gray-200 p-4 rounded-lg"
     >
@@ -29,7 +37,6 @@
             <th class="px-3 py-2 whitespace-nowrap">Action</th>
           </tr>
         </thead>
-
         <tbody class="divide-y divide-gray-200">
           <tr class="*:text-gray-900 *:first:font-medium">
             <td class="px-3 py-2 whitespace-nowrap">Nandor the Relentless</td>
@@ -40,7 +47,6 @@
               <button class=""></button>
             </td>
           </tr>
-
           <tr class="*:text-gray-900 *:first:font-medium">
             <td class="px-3 py-2 whitespace-nowrap">Laszlo Cravensworth</td>
             <td class="px-3 py-2 whitespace-nowrap">19/10/1678</td>
@@ -76,8 +82,34 @@
 <script setup>
 import { BeakerIcon } from "@heroicons/vue/16/solid";
 
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import WorkModal from "./WorkModal.vue";
+import axios from "axios";
 
 const isOpen = ref(false);
+const API_URL = "http://localhost:5002/v1";
+
+const todo = ref([]);
+const isLoading = ref(false);
+const errorMessgae = ref();
+
+const addWork = async () => {
+  
+}
+const getWork = async () => {
+  try {
+    isLoading.value = true;
+    const res = await axios.get(`${API_URL}/work`);
+    if (res.data.status === true) {
+      todo.value = await res.data;
+    }
+  } catch (error) {
+    errorMessgae.value = error.message;
+  } finally {
+    isLoading.value = false;
+  }
+};
+onMounted(() => {
+  getWork();
+});
 </script>

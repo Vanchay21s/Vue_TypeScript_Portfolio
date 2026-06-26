@@ -1,9 +1,9 @@
 <template>
-  <article class="w-full flex ">
-  <SideMenu />
-  <div class="w-full"> 
-    <router-view></router-view>
-  </div>
+  <article class="w-full flex">
+    <SideMenu />
+    <div class="w-full">
+      <router-view></router-view>
+    </div>
   </article>
 </template>
 
