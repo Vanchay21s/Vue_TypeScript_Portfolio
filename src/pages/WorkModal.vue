@@ -39,8 +39,8 @@ const closeModal = () => {
   emit("close");
 };
 import axios from 'axios';
-import { reactive } from 'vue'
-const form = reactive({
+import { ref } from 'vue';
+const form = ref({
   name: "",
   position: "",
   github: "",
@@ -50,14 +50,14 @@ const form = reactive({
 });
 
 const submit = async () => {
-    Object.assign(form, {
-        name: form.name,
-        position: form.position,
-        github: form.github,
-        demo: form.demo,
-        framework: form.framework,
-        description: form.description,
-    })
-    await axios.post('http://localhost:5002/v1/work', form)
+  try{
+    window.confirm("are you sure!!")
+    const res = await axios.post('http://localhost:5002/v1/work', form.value)
+    emit("close");
+  }catch (err){
+    console.error(err.message)
+  }finally{
+    console.log("still ok")
+  }
 }
 </script>

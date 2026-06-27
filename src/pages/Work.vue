@@ -42,8 +42,8 @@
           </tr>
         </thead>
         <tbody v-if="todo && todo.data" class="divide-y divide-gray-200">
-          <tr v-for="item in todo.data.data" :key="item.id" class="*:text-gray-900 *:first:font-medium">
-            <td class="px-3 py-2 whitespace-nowrap">{{ item.id }}</td>
+          <tr v-for="(item, index) in todo.data.data" :key="item.id" class="*:text-gray-900 *:first:font-medium">
+            <td class="px-3 py-2 whitespace-nowrap">{{ index + 1 }}</td>
             <td class="px-3 py-2 whitespace-nowrap">{{ item.name }}</td>
             <td class="px-3 py-2 whitespace-nowrap">{{ item.position }}</td>
             <td class="px-3 py-2 whitespace-nowrap">{{ item.github }}</td>
@@ -68,9 +68,10 @@ import WorkModal from "./WorkModal.vue";
 import axios from "axios";
 
 const isOpen = ref(false);
+
 const API_URL = "http://localhost:5002/v1";
 
-const todo = ref([]);
+const todo = ref({});
 const isLoading = ref(false);
 const errorMessgae = ref();
 
