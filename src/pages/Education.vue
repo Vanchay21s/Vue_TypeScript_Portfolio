@@ -5,6 +5,10 @@
       <div v-if="errMessage">{{ errMessage }}</div>
     </div>
     <button @click="refetch">refetch</button>
+    <button @click="isOpen = true">add Education</button>
+    <EducationModal :show="isOpen" @close="isOpen = false" :loadForm="loadEducation" :add="addEducation" :Todo="educationTodo">
+      <p>This is adding Edcation page </p>
+    </EducationModal>
     <div class="w-full flex gap-3">
       <div
         v-for="(item, index) in educationTodo?.data"
@@ -28,6 +32,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { useEducation } from "../composables/useEducation";
+import EducationModal from "./EducationModal.vue";
+const isOpen = ref(false);
 
 const { isLoading, errMessage, educationTodo, addEducation, loadEducation } =
   useEducation();

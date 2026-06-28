@@ -25,7 +25,7 @@ const form = reactive({
   demo: "",
   framework: "",
   description: "",
-});
+}); 
 
 const submit = async () => {
     Object.assign(form, {
