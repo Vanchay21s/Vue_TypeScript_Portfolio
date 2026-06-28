@@ -20,8 +20,7 @@
       >
         Open Modal
       </button>
-
-      <WorkModal :show="isOpen" @close="isOpen = false">
+      <WorkModal :show="isOpen" @close="isOpen = false" :getWork="getWork">
         <p>This is modal content.</p>
       </WorkModal>
     </div>
@@ -52,7 +51,7 @@
             <td class="px-3 py-2 whitespace-nowrap">{{ item.description }}</td>
             <td class="px-3 py-2 whitespace-nowrap">{{ item.created_at }}</td>
             <td class="text-center">
-              <button class="text-blue-400 bg-blue-500/20 font-bold border cursor-pointer">view</button> / 
+              <button class="text-blue-400 bg-blue-500/20 font-bold border cursor-pointer rounded-2xl">view</button> / 
               <button class="text-yellow-400 bg-yellow-500/20 font-bold border cursor-pointer">Edit</button> / 
               <button class="text-red-400 bg-red-500/20 font-bold border cursor-pointer">Delete</button>
             </td>
@@ -75,9 +74,7 @@ const todo = ref({});
 const isLoading = ref(false);
 const errorMessgae = ref();
 
-const addWork = async () => {
-  
-}
+// fetch work -------------------------------------------
 const getWork = async () => {
   try {
     isLoading.value = true;

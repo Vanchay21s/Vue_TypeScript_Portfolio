@@ -1,109 +1,42 @@
 <template>
-  <div class="mx-auto max-w-5xl p-4 sm:px-6 lg:px-8">
-    <div class="space-y-2">
-      <details class="group [&amp;_summary::-webkit-details-marker]:hidden">
-        <summary
-          class="flex cursor-pointer items-center justify-between gap-4 rounded-lg border border-gray-200 bg-white px-4 py-3 font-medium text-gray-900 hover:bg-gray-50"
-        >
-          <span>What are the basic features?</span>
-          <svg
-            class="size-5 shrink-0 transition-transform duration-300 group-open:-rotate-180"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M19 9l-7 7-7-7"
-            ></path>
-          </svg>
-        </summary>
-
-        <div class="p-4">
-          <p class="text-gray-700">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-            similique, quae hic dicta quo facere facilis praesentium a sunt, est
-            quia pariatur nam, modi aut minus iste odio consectetur molestias
-            iusto cupiditate ullam laborum veniam quos officia. Quos, temporibus
-            perspiciatis!
-          </p>
-        </div>
-      </details>
-
-      <details class="group [&amp;_summary::-webkit-details-marker]:hidden">
-        <summary
-          class="flex cursor-pointer items-center justify-between gap-4 rounded-lg border border-gray-200 bg-white px-4 py-3 font-medium text-gray-900 hover:bg-gray-50"
-        >
-          <span>How do I get started?</span>
-
-          <svg
-            class="size-5 shrink-0 transition-transform duration-300 group-open:-rotate-180"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M19 9l-7 7-7-7"
-            ></path>
-          </svg>
-        </summary>
-
-        <div class="p-4">
-          <p class="text-gray-700">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-            similique, quae hic dicta quo facere facilis praesentium a sunt, est
-            quia pariatur nam, modi aut minus iste odio consectetur molestias
-            iusto cupiditate ullam laborum veniam quos officia. Quos, temporibus
-            perspiciatis!
-          </p>
-        </div>
-      </details>
-
-      <details class="group [&amp;_summary::-webkit-details-marker]:hidden">
-        <summary
-          class="flex cursor-pointer items-center justify-between gap-4 rounded-lg border border-gray-200 bg-white px-4 py-3 font-medium text-gray-900 hover:bg-gray-50"
-        >
-          <span>What support options are available?</span>
-
-          <svg
-            class="size-5 shrink-0 transition-transform duration-300 group-open:-rotate-180"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M19 9l-7 7-7-7"
-            ></path>
-          </svg>
-        </summary>
-
-        <div class="p-4">
-          <p class="text-gray-700">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-            similique, quae hic dicta quo facere facilis praesentium a sunt, est
-            quia pariatur nam, modi aut minus iste odio consectetur molestias
-            iusto cupiditate ullam laborum veniam quos officia. Quos, temporibus
-            perspiciatis!
-          </p>
-        </div>
-      </details>
+  <article class="w-full bg-amber-200">
+    <div v-if="isLoading">Loading.....</div>
+    <div v-else>
+      <div v-if="errMessage">{{ errMessage }}</div>
     </div>
-  </div>
+    <button @click="refetch">refetch</button>
+    <div class="w-full flex gap-3">
+      <div
+        v-for="(item, index) in educationTodo?.data"
+        class="w-1/1 border flex"
+      >
+        <p>NO: {{ index + 1 }}</p>
+        <p>ID: {{ item.id }}</p>
+        <p>Name: {{ item.name }}</p>
+        <img
+          :src="`http://localhost:5002/uploads/${item.logo}`"
+          alt="Education Logo"
+          class="w-full h-full object-cover rounded"
+        />
+        <p>ID: {{ item.id }}</p>
+        <p>Name: {{ item.name }}</p>
+      </div>
+    </div>
+  </article>
 </template>
-<script>
-export default {
-  name: "Education",
+
+<script setup lang="ts">
+import { onMounted, ref } from "vue";
+import { useEducation } from "../composables/useEducation";
+
+const { isLoading, errMessage, educationTodo, addEducation, loadEducation } =
+  useEducation();
+
+const refetch = async () => {
+  await loadEducation();
 };
+
+onMounted(() => {
+  loadEducation();
+});
 </script>
-<style lang=""></style>

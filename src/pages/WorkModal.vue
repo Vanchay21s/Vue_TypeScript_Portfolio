@@ -29,8 +29,9 @@
   </div>
 </template>
 <script setup>
-defineProps({
+const props = defineProps({
   show: Boolean,
+  getWork: Function
 });
 
 const emit = defineEmits(["close"]);
@@ -51,9 +52,19 @@ const form = ref({
 
 const submit = async () => {
   try{
-    window.confirm("are you sure!!")
+    const ok = window.confirm("are you sure!!")
+    if(!ok) return 
     const res = await axios.post('http://localhost:5002/v1/work', form.value)
+    await props.getWork()
     emit("close");
+    form.value = {
+      name: "",
+      position: "",
+      github: "",
+      demo: "",
+      framework: "",
+      description: "",
+    };
   }catch (err){
     console.error(err.message)
   }finally{
