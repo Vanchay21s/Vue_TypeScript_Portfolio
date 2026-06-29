@@ -2,14 +2,6 @@
   <article class="w-full flex flex-col gap-4 p-4">
     <h1 class="text-2xl font-bold">Project Management</h1>
     <!-- add Project -->
-    <button @click="getWork">fatch</button>
-    <div v-if="isLoading">Loading...</div>
-    <div v-else>
-      <div v-if="errorMessgae">
-        <p>{{ errorMessgae }}</p>
-      </div>
-    </div>
-    <div>{{ todo.data }}</div>
     <div
       class="flex justify-between items-center border border-gray-200 p-4 rounded-lg"
     >
@@ -21,7 +13,7 @@
         Open Modal
       </button>
       <WorkModal :show="isOpen" @close="isOpen = false" :getWork="getWork">
-        <p>This is modal content.</p>
+        <p>This is modal content....</p>
       </WorkModal>
     </div>
     <!-- Table -->
@@ -41,7 +33,11 @@
           </tr>
         </thead>
         <tbody v-if="todo && todo.data" class="divide-y divide-gray-200">
-          <tr v-for="(item, index) in todo.data.data" :key="item.id" class="*:text-gray-900 *:first:font-medium">
+          <tr
+            v-for="(item, index) in todo.data.data"
+            :key="item.id"
+            class="*:text-gray-900 *:first:font-medium"
+          >
             <td class="px-3 py-2 whitespace-nowrap">{{ index + 1 }}</td>
             <td class="px-3 py-2 whitespace-nowrap">{{ item.name }}</td>
             <td class="px-3 py-2 whitespace-nowrap">{{ item.position }}</td>
@@ -51,9 +47,23 @@
             <td class="px-3 py-2 whitespace-nowrap">{{ item.description }}</td>
             <td class="px-3 py-2 whitespace-nowrap">{{ item.created_at }}</td>
             <td class="text-center">
-              <button class="text-blue-400 bg-blue-500/20 font-bold border cursor-pointer rounded-2xl">view</button> / 
-              <button class="text-yellow-400 bg-yellow-500/20 font-bold border cursor-pointer">Edit</button> / 
-              <button class="text-red-400 bg-red-500/20 font-bold border cursor-pointer">Delete</button>
+              <button
+                class="text-blue-400 bg-blue-500/20 font-bold border cursor-pointer rounded-2xl"
+              >
+                view
+              </button>
+              /
+              <button
+                class="text-yellow-400 bg-yellow-500/20 font-bold border cursor-pointer"
+              >
+                Edit
+              </button>
+              /
+              <button
+                class="text-red-400 bg-red-500/20 font-bold border cursor-pointer"
+              >
+                Delete
+              </button>
             </td>
           </tr>
         </tbody>
@@ -66,7 +76,7 @@ import { onMounted, ref } from "vue";
 import WorkModal from "./WorkModal.vue";
 import axios from "axios";
 
-const isOpen = ref(false);
+
 
 const API_URL = "http://localhost:5002/v1";
 

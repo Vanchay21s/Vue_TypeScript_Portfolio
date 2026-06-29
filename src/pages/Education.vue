@@ -1,30 +1,51 @@
 <template>
-  <article class="w-full bg-amber-200">
-    <div v-if="isLoading">Loading.....</div>
-    <div v-else>
-      <div v-if="errMessage">{{ errMessage }}</div>
+  <article class="w-full flex flex-col gap-4 p-4">
+    <h1 class="font-normal text-2xl">Education Management</h1>
+    <div class="w-full flex justify-between border p-1">
+      <p class="font-normal text-sm">Education Management</p>
+      <button @click="isOpen = true" class="px-1 mx-1 border text-blue-500 font-normal text-sm cursor-pointer">Add education</button>
     </div>
-    <button @click="refetch">refetch</button>
-    <button @click="isOpen = true">add Education</button>
-    <EducationModal :show="isOpen" @close="isOpen = false" :loadForm="loadEducation" :add="addEducation" :Todo="educationTodo">
-      <p>This is adding Edcation page </p>
+    <EducationModal
+      :add="isOpen"
+      :edit="isOpen"
+      @close="isOpen = false"
+    >
+      <p>This is adding Edcation page</p>
     </EducationModal>
-    <div class="w-full flex gap-3">
-      <div
-        v-for="(item, index) in educationTodo?.data"
-        class="w-1/1 border flex"
-      >
-        <p>NO: {{ index + 1 }}</p>
-        <p>ID: {{ item.id }}</p>
-        <p>Name: {{ item.name }}</p>
-        <img
-          :src="`http://localhost:5002/uploads/${item.logo}`"
-          alt="Education Logo"
-          class="w-full h-full object-cover rounded"
-        />
-        <p>ID: {{ item.id }}</p>
-        <p>Name: {{ item.name }}</p>
-      </div>
+    <!-- Table ------------------------------------------------------ -->
+    <div class="overflow-x-auto rounded border border-gray-300 shadow-sm">
+      <Table class="min-w-full divide-y-2 divide-gray-200">
+        <thead class="ltr:text-left rtl:text-right"> 
+          <tr class="*:font-medium *:text-gray-500 bg-gray-500/20 text-sm">
+            <th class="p-1">No.</th>
+            <th class="p-1">Id</th>
+            <th class="p-1">Name</th>
+            <th class="p-1">Major</th>
+            <th class="p-1">GPA</th>
+            <th class="p-1">Date_Start</th>
+            <th class="p-1">Date_End</th>
+            <th class="p-1">Created_at</th>
+            <th class="p-1">action</th>
+          </tr>
+        </thead>
+        <tbody v-if="educationTodo" class="divide-y divide-gray-200">
+          <tr v-for="(items, index) in educationTodo.data" key="index" class="*:text-gray-900 *:first:font-medium font-light text-sm">
+            <td class="p-1">{{ index + 1 }}</td>
+            <td class="p-1">{{ items.id }}</td>
+            <td class="p-1">{{ items.name }}</td>
+            <td class="p-1">{{ items.major }}</td>
+            <td class="p-1">{{ items.gpa }}</td>
+            <td class="p-1">{{ items.date_start }}</td>
+            <td class="p-1">{{ items.date_end }}</td>
+            <td class="p-1">{{ items.created_at }}</td>
+            <td class="p-1 w-40">
+              <button class="px-1 mx-1 text-green-500 border">view</button>
+              <button class="px-1 mx-1 text-yellow-500 border" @click="isOpen = true">edit</button>
+              <button class="px-1 mx-1 text-red-500 border">delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </article>
 </template>
@@ -35,12 +56,7 @@ import { useEducation } from "../composables/useEducation";
 import EducationModal from "./EducationModal.vue";
 const isOpen = ref(false);
 
-const { isLoading, errMessage, educationTodo, addEducation, loadEducation } =
-  useEducation();
-
-const refetch = async () => {
-  await loadEducation();
-};
+const { isLoading, errMessage, educationTodo, addEducation, loadEducation } = useEducation();
 
 onMounted(() => {
   loadEducation();

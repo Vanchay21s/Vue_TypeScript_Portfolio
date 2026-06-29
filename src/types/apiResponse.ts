@@ -1,7 +1,7 @@
-import type { Education } from "../types/education";
 
-export interface apiResponse<> {
+
+export interface apiResponse<T> {
     message: string,
     status: boolean,
-    data: Education[]
+    data: T
 }

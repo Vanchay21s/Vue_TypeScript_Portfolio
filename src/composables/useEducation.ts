@@ -1,12 +1,12 @@
 import { ref } from "vue";
 import * as educationService from "../services/educationService";
-import type { Education } from "../types/education";
 import type { apiResponse } from "../types/apiResponse";
+import type { Education } from "../types/education";
 
 export const useEducation = () => {
   const isLoading = ref(false);
   const errMessage = ref();
-  const educationTodo = ref<apiResponse>();
+  const educationTodo = ref<apiResponse<Education[]>>();
   const addEducation = async (data: Education) => {
     isLoading.value = true;
     try {
