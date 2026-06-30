@@ -14,7 +14,7 @@ export const educationAPI = {
   },
 
   updateEducation(id: number, data: FormData) {
-    return apiURL.put(`/education/${id}`, data);
+    return apiURL.patch(`/education/${id}`, data);
   },
 
   deleteEducation(id: number) {

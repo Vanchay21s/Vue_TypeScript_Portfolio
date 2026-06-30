@@ -10,10 +10,10 @@ export const addEducation = async (data: Education) => {
             formData.append(key,value as any)
         }
     })
-    return educationAPI.addEducation(formData)
+    return await educationAPI.addEducation(formData)
 }
 
 // fetch education ----------------------------------------------------------------
 export const getEducation = async() => {
-    return educationAPI.getEducation()
+    return await educationAPI.getEducation()
 }

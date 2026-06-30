@@ -53,7 +53,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { useEducation } from "../composables/useEducation";
-import EducationModal from "./EducationModal.vue";
+import EducationModal from "./form/EducationModal.vue";
 const isOpen = ref(false);
 
 const { isLoading, errMessage, educationTodo, addEducation, loadEducation } = useEducation();
