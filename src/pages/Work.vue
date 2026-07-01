@@ -1,69 +1,50 @@
 <template>
   <article class="w-full flex flex-col gap-4 p-4">
-    <h1 class="text-2xl font-bold">Project Management</h1>
-    <!-- add Project -->
-    <div
-      class="flex justify-between items-center border border-gray-200 p-4 rounded-lg"
-    >
-      <h2 class="text-xl font-medium">Project Management</h2>
-      <button
-        @click="isOpen = true"
-        class="rounded-lg bg-blue-600 px-4 py-2 text-white"
-      >
-        Open Modal
-      </button>
-      <WorkModal :show="isOpen" @close="isOpen = false" :getWork="getWork">
-        <p>This is modal content....</p>
-      </WorkModal>
+    <h1 class="font-normal text-2xl">Project Managements</h1>
+    <div class="w-full flex justify-between border p-1">
+      <p class="font-normal text-sm">Project Managements</p>
+      <button @click="isOpen = true" class="px-1 mx-1 border text-blue-500 font-normal text-sm cursor-pointer">Add Project</button>
     </div>
-    <!-- Table -->
+    <EducationModal
+      :add="isOpen"
+      :edit="isOpen"
+      @close="isOpen = false"
+    >
+      <p>This is adding Project page</p>
+    </EducationModal>
+    <!-- Table ------------------------------------------------------ -->
     <div class="overflow-x-auto rounded border border-gray-300 shadow-sm">
-      <table class="min-w-full divide-y-2 divide-gray-200">
-        <thead class="ltr:text-left rtl:text-right">
-          <tr class="*:font-medium *:text-gray-500 bg-gray-500/20">
-            <th class="px-3 py-2 whitespace-nowrap">No</th>
-            <th class="px-3 py-2 whitespace-nowrap">name</th>
-            <th class="px-3 py-2 whitespace-nowrap">position</th>
-            <th class="px-3 py-2 whitespace-nowrap">github</th>
-            <th class="px-3 py-2 whitespace-nowrap">demo</th>
-            <th class="px-3 py-2 whitespace-nowrap">framework</th>
-            <th class="px-3 py-2 whitespace-nowrap">description</th>
-            <th class="px-3 py-2 whitespace-nowrap">created_at</th>
-            <th class="px-3 py-2 whitespace-nowrap text-center">action</th>
+      <div v-if="errMessage" class="p-1 font-light text-sm text-center text-red-500 bg-red-500/20">{{ errMessage }}.</div>
+      <Table class="min-w-full divide-y-2 divide-gray-200">
+        <thead class="ltr:text-left rtl:text-right"> 
+          <tr class="*:font-medium *:text-gray-500 bg-gray-500/20 text-sm">
+            <th class="p-1">No.</th>
+            <th class="p-1">Id</th>
+            <th class="p-1">Name</th>
+            <th class="p-1">Position</th>
+            <th class="p-1">GitHub Link</th>
+            <th class="p-1">Demo Link</th>
+            <th class="p-1">Framework</th>
+            <th class="p-1">Description</th>
+            <th class="p-1">Created_at</th>
+            <th class="p-1">Action</th>
           </tr>
         </thead>
-        <tbody v-if="todo && todo.data" class="divide-y divide-gray-200">
-          <tr
-            v-for="(item, index) in todo.data.data"
-            :key="item.id"
-            class="*:text-gray-900 *:first:font-medium"
-          >
-            <td class="px-3 py-2 whitespace-nowrap">{{ index + 1 }}</td>
-            <td class="px-3 py-2 whitespace-nowrap">{{ item.name }}</td>
-            <td class="px-3 py-2 whitespace-nowrap">{{ item.position }}</td>
-            <td class="px-3 py-2 whitespace-nowrap">{{ item.github }}</td>
-            <td class="px-3 py-2 whitespace-nowrap">{{ item.demo }}</td>
-            <td class="px-3 py-2 whitespace-nowrap">{{ item.framework }}</td>
-            <td class="px-3 py-2 whitespace-nowrap">{{ item.description }}</td>
-            <td class="px-3 py-2 whitespace-nowrap">{{ item.created_at }}</td>
-            <td class="text-center">
-              <button
-                class="text-blue-400 bg-blue-500/20 font-bold border cursor-pointer rounded-2xl"
-              >
-                view
-              </button>
-              /
-              <button
-                class="text-yellow-400 bg-yellow-500/20 font-bold border cursor-pointer"
-              >
-                Edit
-              </button>
-              /
-              <button
-                class="text-red-400 bg-red-500/20 font-bold border cursor-pointer"
-              >
-                Delete
-              </button>
+        <tbody v-if="work" class="divide-y divide-gray-200">
+          <tr v-for="(items, index) in work.data.data" class="*:text-gray-900 *:first:font-medium font-light text-sm">
+            <td class="p-1">{{ index + 1 }}</td>
+            <td class="p-1">{{ items.id }}</td>
+            <td class="p-1">{{ items.name}}</td>
+            <td class="p-1">{{ items.position}}</td>
+            <td class="p-1">{{ items.github }}</td>
+            <td class="p-1">{{ items.demo }}</td>
+            <td class="p-1">{{ items.framework}}</td>
+            <td class="p-1">{{ items.description}}</td>
+            <td class="p-1">{{ items.created_at }}</td>
+            <td class="p-1 w-40">
+              <button class="px-1 mx-1 text-green-500 border">view</button>
+              <button class="px-1 mx-1 text-yellow-500 border" >edit</button>
+              <button class="px-1 mx-1 text-red-500 border">delete</button>
             </td>
           </tr>
         </tbody>
@@ -71,34 +52,12 @@
     </div>
   </article>
 </template>
-<script setup>
-import { onMounted, ref } from "vue";
-import WorkModal from "./WorkModal.vue";
-import axios from "axios";
+<script setup lang="ts">
+import { ref } from 'vue';
+import { useWork } from '../composables/useWork';
 
+const isOpen = ref(false)
 
-
-const API_URL = "http://localhost:5002/v1";
-
-const todo = ref({});
-const isLoading = ref(false);
-const errorMessgae = ref();
-
-// fetch work -------------------------------------------
-const getWork = async () => {
-  try {
-    isLoading.value = true;
-    const res = await axios.get(`${API_URL}/work`);
-    if (res.data.status === true) {
-      todo.value = await res.data;
-    }
-  } catch (error) {
-    errorMessgae.value = error.message;
-  } finally {
-    isLoading.value = false;
-  }
-};
-onMounted(() => {
-  getWork();
-});
+// API -----------------------------------------------------------------
+const {isLoading, errMessage, work} = useWork()
 </script>

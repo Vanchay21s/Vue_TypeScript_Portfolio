@@ -14,76 +14,33 @@
     </EducationModal>
     <!-- Table ------------------------------------------------------ -->
     <div class="overflow-x-auto rounded border border-gray-300 shadow-sm">
+      <div v-if="tool?.data.length === 0">Tool is Empty, pls add somw tool.....</div>
       <Table class="min-w-full divide-y-2 divide-gray-200">
         <thead class="ltr:text-left rtl:text-right"> 
           <tr class="*:font-medium *:text-gray-500 bg-gray-500/20 text-sm">
             <th class="p-1">No.</th>
-            <th class="p-1">url_logo</th>
             <th class="p-1">Id</th>
             <th class="p-1">Name</th>
-            <th class="p-1">rating</th>
+            <th class="p-1">Technology_Id</th>
+            <th class="p-1">Technology_Name</th>
             <th class="p-1">Created_at</th>
             <th class="p-1">action</th>
           </tr>
         </thead>
-        <!-- <tbody v-if="educationTodo" class="divide-y divide-gray-200">
-          <tr v-for="(items, index) in educationTodo.data" key="index" class="*:text-gray-900 *:first:font-medium font-light text-sm">
+        <tbody v-if="tool" class="divide-y divide-gray-200">
+          <tr v-for="(item, index) in tool.data" :key="index" class="*:text-gray-900 *:first:font-medium font-light text-sm">
             <td class="p-1">{{ index + 1 }}</td>
-            <td class="p-1">{{ items.id }}</td>
-            <td class="p-1">{{ items.name }}</td>
-            <td class="p-1">{{ items.major }}</td>
-            <td class="p-1">{{ items.gpa }}</td>
-            <td class="p-1">{{ items.date_start }}</td>
-            <td class="p-1">{{ items.date_end }}</td>
-            <td class="p-1">{{ items.created_at }}</td>
+            <td class="p-1">{{ item.id }}</td>
+            <td class="p-1">{{ item.name }}</td>
+            <td class="p-1">{{ item.by_technology.id }}</td>
+            <td class="p-1">{{ item.by_technology.name }}</td>
+            <td class="p-1">{{ item.created_at }}</td>
             <td class="p-1 w-40">
               <button class="px-1 mx-1 text-green-500 border">view</button>
               <button class="px-1 mx-1 text-yellow-500 border" @click="isOpen = true">edit</button>
               <button class="px-1 mx-1 text-red-500 border">delete</button>
             </td>
           </tr>
-        </tbody> -->
-        <tbody class="divide-y divide-gray-200">
-          <tr class="*:text-gray-900 *:first:font-medium font-light text-sm">
-            <td class="p-1">1</td>
-            <td class="p-1"><img :src="testLogo" alt="url-Logo" class="size-5"></td>
-            <td class="p-1">1</td>
-            <td class="p-1">Vue.js</td>
-            <td class="p-1">60%</td>
-            <td class="p-1">30-june-26</td>
-            <td class="p-1 w-40">
-              <button class="px-1 mx-1 text-green-500 border">view</button>
-              <button class="px-1 mx-1 text-yellow-500 border" @click="isOpen = true">edit</button>
-              <button class="px-1 mx-1 text-red-500 border">delete</button>
-            </td>
-          </tr>
-          <tr class="*:text-gray-900 *:first:font-medium font-light text-sm">
-            <td class="p-1">1</td>
-            <td class="p-1"><img :src="testLogo" alt="url-Logo" class="size-5"></td>
-            <td class="p-1">1</td>
-            <td class="p-1">Vue.js</td>
-            <td class="p-1">60%</td>
-            <td class="p-1">30-june-26</td>
-            <td class="p-1 w-40">
-              <button class="px-1 mx-1 text-green-500 border">view</button>
-              <button class="px-1 mx-1 text-yellow-500 border" @click="isOpen = true">edit</button>
-              <button class="px-1 mx-1 text-red-500 border">delete</button>
-            </td>
-          </tr>
-          <tr class="*:text-gray-900 *:first:font-medium font-light text-sm">
-            <td class="p-1">1</td>
-            <td class="p-1"><img :src="testLogo" alt="url-Logo" class="size-5"></td>
-            <td class="p-1">1</td>
-            <td class="p-1">Vue.js</td>
-            <td class="p-1">60%</td>
-            <td class="p-1">30-june-26</td>
-            <td class="p-1 w-40">
-              <button class="px-1 mx-1 text-green-500 border">view</button>
-              <button class="px-1 mx-1 text-yellow-500 border" @click="isOpen = true">edit</button>
-              <button class="px-1 mx-1 text-red-500 border">delete</button>
-            </td>
-          </tr>
-          
         </tbody>
       </table>
     </div>
@@ -91,10 +48,12 @@
 </template>
 <script setup lang="ts">
 import { ref } from 'vue';import EducationModal from "./form/EducationModal.vue";
+import { useTool } from '../composables/useTool.ts';
 const testLogo = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMNvJTHvVkFO-miBKZ088HWzUok2IKyJZ0r02WUVCwag&s"
 // Other Function ----------------------------------------------------------------------------------
 const isOpen = ref(false)
 
 // APIs ----------------------------------------------------------------------------------[]
 
+const { isLoading, errMessage, tool} = useTool()
 </script>

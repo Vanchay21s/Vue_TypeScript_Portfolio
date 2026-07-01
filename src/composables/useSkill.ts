@@ -1,4 +1,4 @@
-import { ref } from "vue"
+import { onMounted, ref } from "vue"
 import type { apiResponse } from "../types/apiResponse"
 import type { Skill } from "../types/skill"
 import * as skillService from "../services/skillService"
@@ -23,5 +23,8 @@ export const useSkill = () => {
             isLoading.value = false
         }
     }
+    onMounted(() => {
+        loadForm()
+    })
     return {isLoading, errMessage, skillTodo, loadForm}
 }

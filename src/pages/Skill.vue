@@ -54,11 +54,6 @@ import { useSkill } from '../composables/useSkill.ts';
 const isOpen = ref(false)
 
 // APIs ----------------------------------------------------------------------------------[]
-const {isLoading, errMessage, skillTodo, loadForm} = useSkill()
+const {isLoading, errMessage, skillTodo} = useSkill()
 
-
-onMounted(() => {
-  loadForm()
-  console.log(skillTodo)
-})
 </script>
