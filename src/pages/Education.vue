@@ -19,6 +19,7 @@
           <tr class="*:font-medium *:text-gray-500 bg-gray-500/20 text-sm">
             <th class="p-1">No.</th>
             <th class="p-1">Id</th>
+            <th class="p-1">Logo</th>
             <th class="p-1">Name</th>
             <th class="p-1">Major</th>
             <th class="p-1">GPA</th>
@@ -32,6 +33,7 @@
           <tr v-for="(items, index) in educationTodo.data" key="index" class="*:text-gray-900 *:first:font-medium font-light text-sm">
             <td class="p-1">{{ index + 1 }}</td>
             <td class="p-1">{{ items.id }}</td>
+            <td class="p-1"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTr6Nt-nbIsUrlIbEpE8xdWuY_WK8jwvr2uBTHVm5PLimYKzi73XkGUyRvb&s=10" alt="logo_url" class="h-5"></td>
             <td class="p-1">{{ items.name }}</td>
             <td class="p-1">{{ items.major }}</td>
             <td class="p-1">{{ items.gpa }}</td>
